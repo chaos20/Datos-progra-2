@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1527904836 source:c:\users\josef\google drive\para pasar\grafos\main.cpp
+	<iostream>
+	<string>
+	<GraphList.h>
+	<LinkedList.h>
+
+1527904708 c:\users\josef\google drive\para pasar\grafos\include\graphlist.h
+	<List.h>
+	<Gnode.h>
+	<LinkedList.h>
+	<stdexcept>
+
+1527899382 c:\users\josef\google drive\para pasar\grafos\include\list.h
+
+1527904711 c:\users\josef\google drive\para pasar\grafos\include\gnode.h
+	<LinkedList.h>
+
+1527900818 c:\users\josef\google drive\para pasar\grafos\include\node.h
+	<stdlib.h>
+
+1527902264 c:\users\josef\google drive\para pasar\grafos\include\linkedlist.h
+	"ListforLink.h"
+	"Node.h"
+	<stdlib.h>
+
+1527902450 c:\users\josef\google drive\para pasar\grafos\include\listforlink.h
+

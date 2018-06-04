@@ -1,0 +1,23 @@
+#ifndef ARISTA_H
+#define ARISTA_H
+#include <Gnode.h>
+
+
+class arista{
+    public:
+        E tag;
+        Gnode<E> *nextNode;
+        arista(E element, Gnode<E> *node) {
+            this->tag = element;
+            this->nextNode = node;
+        }
+        arista(Gnode<E> *node) {
+            this->nextNode = node;
+        }
+
+    protected:
+
+    private:
+};
+
+#endif // ARISTA_H
