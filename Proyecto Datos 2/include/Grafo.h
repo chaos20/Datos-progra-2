@@ -155,6 +155,7 @@ public:
                 next();
             }
         }
+        next();
     }
 
     void addConection(E startNode, E finishNode, string pTag) throw (runtime_error){
@@ -173,6 +174,16 @@ public:
 
     GNode<E> *getCurrent(){
         return this->current;
+    }
+
+    void imprimirGrafo(){
+        GNode<string> *temp = head->next;
+        while(temp != tail){
+            cout << "Nodo: " << temp->element << endl << "Conexiones: ";
+            cout << temp->conections->printList() << endl;
+            cout << endl;
+            temp = temp->next;
+        }
     }
 };
 

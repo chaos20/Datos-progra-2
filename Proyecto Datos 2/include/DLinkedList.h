@@ -13,7 +13,7 @@ using std::stringstream;
 template <typename E>
 
 class DLinkedList : public List<E>{
-private:
+public:
     DNode<E> *head;
     DNode<E> *tail;
     DNode<E> *current;
