@@ -30,11 +30,6 @@ public:
         delete tail;
     }
 
-    /*void insert(E pElement){
-        current->next = current->next->previous = new GNode<E>(pElement,current->next,current);
-        size++;
-    }*/
-
     void append(E pElement){
         tail->previous = tail->previous->next = new GNode<E>(pElement,tail,tail->previous);
         size++;
@@ -49,31 +44,6 @@ public:
         }
         return current->next->element;
     }
-
-    /*E remove() throw (runtime_error){
-        if(size==0){
-            throw runtime_error("Empty List");
-        }
-        if(current->next == tail){
-            throw runtime_error("No current element");
-        }
-        Gnode<E> *temp = current->next;
-        current->next = current->next->next;
-        current->next->previous = current;
-        E result = temp->element;
-        size--;
-        return result;
-    }*/
-
-    /*void goToPos(int pos){
-        if(pos<0 || pos>size){
-            throw runtime_error("index out of bounds");
-        }
-        int i = 0;
-        for(goToStart(); i < pos; next()){
-            i++;
-        }
-    }*/
 
     void goToStart(){
          current = head;
@@ -129,6 +99,7 @@ public:
         return pos;
     }
 
+    //Método que verifica si un elemento se encuentra en el grafo
     bool contains(E pElement){
         if(size == 0)
             return false;
@@ -143,6 +114,7 @@ public:
         }
     }
 
+    //Método que coloca a current en el nodo dado por parámetro
     void goToElement(E pElement){
         bool keepSearching = true;
         GNode<E> *temp = head->next;
@@ -158,6 +130,22 @@ public:
         next();
     }
 
+    //Método que coloca a current un nodo atrás del dado por parámetro
+    void goToPreviousElement(E pElement){
+        bool keepSearching = true;
+        GNode<E> *temp = head->next;
+        goToStart();
+        while(temp != tail && keepSearching){
+            if(temp->element == pElement)
+                keepSearching = false;
+            else{
+                temp = temp->next;
+                next();
+            }
+        }
+    }
+
+    //Método que recibe el nodo de donde se va a hacer la transición, el nodo a donde va a hacer la transición y el tag (condición) para que la transición suceda
     void addConection(E startNode, E finishNode, string pTag) throw (runtime_error){
         if(contains(startNode)){
             goToElement(startNode);
@@ -176,12 +164,37 @@ public:
         return this->current;
     }
 
+    //Método que imprime el grafo mostrando cada nodo del grafo y sus conexiones
     void imprimirGrafo(){
         GNode<string> *temp = head->next;
         while(temp != tail){
             cout << "Nodo: " << temp->element << endl << "Conexiones: ";
             cout << temp->conections->printList() << endl;
             cout << endl;
+            temp = temp->next;
+        }
+    }
+
+    //Método que recibe el nodo de donde se va a hacer la transición y el símbolo al que la cabeza apunta en la cinta y retorna el nodo al que se debería hacer la transición
+    string checkConection(string startNode, string symbol){
+        goToElement(startNode);
+        DNode<string> *temp = current->conections->head->next;
+        while(temp != current->conections->tail){
+            if(temp->tag[0] == symbol[0]){
+                return temp->element;
+            }
+            temp = temp->next;
+        }
+    }
+
+    //Método que recibe el nodo de donde se va a hacer la transición y el símbolo al que la cabeza apunta en la cinta y retorna el tag relacionado a dicho símbolo
+    string getTag(string startNode, string symbol){
+        goToElement(startNode);
+        DNode<string> *temp = current->conections->head->next;
+        while(temp != current->conections->tail){
+            if(temp->tag[0] == symbol[0]){
+                return temp->tag;
+            }
             temp = temp->next;
         }
     }

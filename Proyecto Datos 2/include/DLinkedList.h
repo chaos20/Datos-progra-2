@@ -126,18 +126,23 @@ public:
         return size;
     }
 
+    //Método que imprime la lista y agrega un "*" en donde está current
     string printList(){
         if(size == 0)
             return "Empty List";
         else{
             DNode<E> *temp = head->next;
             string stringList = "";
+            int cont = 0;
             while(temp != tail){
                 stringstream ss;
                 ss << temp->element;
                 string s = ss.str();
+                if(cont == getPos())
+                    s = "*" + s;
                 stringList = stringList+ s + "->";
                 temp = temp->next;
+                cont++;
             }
             return stringList;
         }
@@ -151,6 +156,7 @@ public:
         return *tail;
     }
 
+    //Método que busca si un elemento se encuentra en la lista
     bool contains(E pElement){
         if(size == 0)
             return false;
@@ -165,17 +171,27 @@ public:
         }
     }
 
+    //Método que recibe un tag y busca si está repetido o si ya existe un tag que lee lo mismo y hace otra cosa
     bool checkDuplicatedTags(string pTag){
         if(size == 0)
             return false;
         else{
             DNode<E> *temp = head->next;
             while(temp != tail){
-                if(temp->tag == pTag)
+                if(temp->tag == pTag || temp->tag[0] == pTag[0])
                     return true;
                 temp = temp->next;
             }
             return false;
+        }
+    }
+
+
+    //Método que ubica a current en el primer elemento después de los caracteres en blanco
+    void goToFirstElement(){
+        goToStart();
+        while(getElement() == "B"){
+            next();
         }
     }
 };

@@ -20,6 +20,7 @@ private:
     DLinkedList<string> *cabeza;
     Grafo<string> *grafo;
 
+    //Método que recibe el nombre del archivo que se quiere leer con su respectiva extensión, lee lo que está escrito en el archivo y crea los atributos de la clase
     void lector(string fileName){
         string line;
         ifstream out(fileName.c_str());
@@ -74,6 +75,7 @@ private:
                 string segmento;
                 stringstream stream(line);
                 while (getline(stream, segmento, ',')){
+                    cout << segmento << endl;
                     estadosDeRechazo->append(segmento);
                 }
             }
@@ -81,6 +83,7 @@ private:
         out.close();
     }
 
+    //Método que lee la lista de estados y los inserta en el grafo
     void insertarEstados(){
         DNode<string> *temp = estados->head->next;
         while(temp != estados->tail){
@@ -89,6 +92,7 @@ private:
         }
     }
 
+    //Método que verifica si los símbolos que tiene el tag son válidos
     bool isTagValid(string pTag){
         string read;
         string write;
@@ -119,6 +123,7 @@ private:
             return false;
     }
 
+    //Método que verifica si un símbolo de entrada es válido
     bool isSymbolValid(string symbol){
         DNode<string> *temp = simbolosDeEntrada->head->next;
         bool isValid = false;
@@ -131,6 +136,7 @@ private:
         return isValid;
     }
 
+    //Método que lee la lista de transiciones y las inserta en el grafo
     void insertarConexiones() throw(runtime_error){
         DNode<string> *temp = transiciones->head->next;
         string startNode;
@@ -160,6 +166,28 @@ private:
         }
     }
 
+    //Método que verifica si un estado dado por parámetro es un estado de rechazo
+    bool esEstadoDeRechazo(string estado){
+        DNode<string> *temp = estadosDeRechazo->head->next;
+        while(temp != estadosDeRechazo->tail){
+            if(temp->element == estado)
+                return true;
+            temp = temp->next;
+        }
+        return false;
+    }
+
+    //Método que verifica si un estado dado por parámetro es un estado de aceptación
+    bool esEstadoDeAceptacion(string estado){
+        DNode<string> *temp = estadosDeAceptacion->head->next;
+        while(temp != estadosDeAceptacion->tail){
+            if(temp->element == estado)
+                return true;
+            temp = temp->next;
+        }
+        return false;
+    }
+
 public:
     Turing(){
         estados = new DLinkedList<string>();
@@ -185,6 +213,7 @@ public:
         delete grafo;
     }
 
+    //Método que llama a varias funciones necesarias para crear el grafo
     void crearGrafo(string fileName){
         lector(fileName);
         insertarEstados();
@@ -192,12 +221,71 @@ public:
         grafo->imprimirGrafo();
     }
 
+    //Método que recibe una serie de caracteres por el usuario y crea la cinta a partir de ellos
     void crearCinta(string userInput) throw(runtime_error){
-        for(int i = 0; i < userInput.length(); i++){
+        int stringLength = userInput.length();
+        cabeza->append(caracterBlanco);
+        cabeza->append(caracterBlanco);
+        cabeza->append(caracterBlanco);
+        cabeza->append(caracterBlanco);
+        cabeza->append(caracterBlanco);
+        for(int i = 0; i < stringLength; i++){
             string symbol(1, userInput[i]);
             if(!isSymbolValid(symbol))
                 throw runtime_error("An input symbol is not valid.");
             cabeza->append(symbol);
+        }
+        cabeza->append(caracterBlanco);
+        cabeza->append(caracterBlanco);
+        cabeza->append(caracterBlanco);
+        cabeza->append(caracterBlanco);
+        cabeza->append(caracterBlanco);
+    }
+
+    //Método que imprime la cinta
+    string imprimirCinta(){
+        return cabeza->printList();
+    }
+
+    //Método que lee la cinta caracter por caracter y en base a ellos, realiza distintas transiciones en el grafo (es el método que hace que la máquina de Turing funcione)
+    void startTuring(){
+        grafo->goToStart();
+        grafo->goToPreviousElement(estadoInicial);
+        cabeza->goToFirstElement();
+        bool keepRunning = true;
+        string element;
+        string startNode = grafo->getElement();
+        string finishNode;
+        string tag;
+        string read;
+        string write;
+        string moveTo;
+        while(keepRunning){
+            element = cabeza->getElement();
+            finishNode = grafo->checkConection(startNode, element);
+            tag = grafo->getTag(startNode, element);
+            grafo->goToStart();
+            grafo->goToPreviousElement(startNode);
+            cout << "Se leyo un " << element << ", entonces se hace un movimiento del nodo " << grafo->getElement() << " al nodo " << finishNode << " cuya tag es " << tag << endl;
+            stringstream stream(tag);
+            getline(stream, read, ',');
+            getline(stream, write, ',');
+            getline(stream, moveTo, ',');
+            cabeza->current->next->element = write;
+            cout << "Cinta: " << cabeza->printList() << endl << endl;
+            if(moveTo == "<")
+                cabeza->previous();
+            else if(moveTo == ">")
+                cabeza->next();
+            grafo->goToPreviousElement(finishNode);
+            startNode = grafo->getElement();
+            if(esEstadoDeAceptacion(startNode)){
+                cout << "Se llego a un estado de aceptacion" << endl;
+                keepRunning = false;
+            }else if(esEstadoDeRechazo(startNode)){
+                cout << "Se llego a un estado de rechazo" << endl;
+                keepRunning = false;
+            }
         }
     }
 };

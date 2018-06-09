@@ -19,4 +19,4 @@ T:q2,B,q3,B,>
 I:q0
 B:B
 F:q3
-R:q4
+R:q4

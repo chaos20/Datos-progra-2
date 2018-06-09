@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1528345677 source:c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\main.cpp
+1528571628 source:c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\main.cpp
 	<iostream>
 	<string>
 	<fstream>
@@ -7,7 +7,7 @@
 	"Turing.h"
 	"Grafo.h"
 
-1528248992 c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\include\dlinkedlist.h
+1528571612 c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\include\dlinkedlist.h
 	<List.h>
 	<DNode.h>
 	<stdexcept>
@@ -18,13 +18,13 @@
 
 1528165945 c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\include\dnode.h
 
-1528347344 c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\include\turing.h
+1528573638 c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\include\turing.h
 	<iostream>
 	<string>
 	<fstream>
 	"Grafo.h"
 
-1528347131 c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\include\grafo.h
+1528571612 c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\include\grafo.h
 	"GNode.h"
 	<stdexcept>
 	<string>
