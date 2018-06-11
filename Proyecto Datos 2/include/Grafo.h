@@ -1,6 +1,7 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 #include "GNode.h"
+#include <GraficadorTuring.h>
 #include <stdexcept>
 #include <string>
 
@@ -145,6 +146,20 @@ public:
         }
     }
 
+    int buscar(E pElement){
+        goToStart();
+        int pos = 0;
+        for(int i = 0; i<size; i++){
+            if(getElement() != pElement){
+                pos++;
+                next();
+            }else{
+              return pos;
+            }
+        }
+    }
+
+
     //Método que recibe el nodo de donde se va a hacer la transición, el nodo a donde va a hacer la transición y el tag (condición) para que la transición suceda
     void addConection(E startNode, E finishNode, string pTag) throw (runtime_error){
         if(contains(startNode)){
@@ -161,11 +176,11 @@ public:
     }
 
     GNode<E> *getCurrent(){
-        return this->current;
+        return this->current->next;
     }
 
     //Método que imprime el grafo mostrando cada nodo del grafo y sus conexiones
-    void imprimirGrafo(){
+    void imprimirGrafo()    {
         GNode<string> *temp = head->next;
         while(temp != tail){
             cout << "Nodo: " << temp->element << endl << "Conexiones: ";

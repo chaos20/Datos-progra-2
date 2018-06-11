@@ -246,9 +246,39 @@ public:
     string imprimirCinta(){
         return cabeza->printList();
     }
+    void dibujarGrafo(){
+        grafo->goToStart();
+        GraficadorTuring g(850, 800, grafo->getSize());
+        for(int n = 0; n < grafo->getSize(); n++){
+            g.asignarNombreEstado(n,grafo->getElement());
+            grafo->next();
+        }
+        grafo->goToStart();
+        while(!grafo->atEnd()){
+            DLinkedList<string> *conexiones = grafo->getCurrent()->getNodes();
+            if(conexiones->getSize() == 0){
+                grafo->next();
+            }
+            else{
+                conexiones->goToStart();
+                while(!conexiones->atEnd()){
+                    string actual = grafo->getElement();
+                    string valorBus = conexiones->getElement();
+                    string  tag = conexiones->getTag();
+                    int finishPos = grafo->buscar(valorBus);
+                    int inipos = grafo->buscar(actual);
+                    g.asignarTransicion(inipos,finishPos,tag);
+                    conexiones->next();
+                }
+                grafo->next();
+            }
+
+        }
+        g.dibujarEstados();
+    }
 
     //Método que lee la cinta caracter por caracter y en base a ellos, realiza distintas transiciones en el grafo (es el método que hace que la máquina de Turing funcione)
-    void startTuring(){
+    int startTuring(bool cont){
         grafo->goToStart();
         grafo->goToPreviousElement(estadoInicial);
         cabeza->goToFirstElement();
@@ -260,7 +290,7 @@ public:
         string read;
         string write;
         string moveTo;
-        while(keepRunning){
+        while(keepRunning && cont){
             element = cabeza->getElement();
             finishNode = grafo->checkConection(startNode, element);
             tag = grafo->getTag(startNode, element);
@@ -282,12 +312,17 @@ public:
             if(esEstadoDeAceptacion(startNode)){
                 cout << "Se llego a un estado de aceptacion" << endl;
                 keepRunning = false;
+                return 0;
             }else if(esEstadoDeRechazo(startNode)){
                 cout << "Se llego a un estado de rechazo" << endl;
                 keepRunning = false;
+                return -1;
+            }else{
+                return 1;
             }
         }
     }
+
 };
 
 #endif // TURING_H

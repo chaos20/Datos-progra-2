@@ -32,3 +32,43 @@
 1528341761 c:\users\juanq\documents\github\datos-progra-2\proyecto datos 2\include\gnode.h
 	"DLinkedList.h"
 
+1528687168 source:c:\users\josef\desktop\github\datos-progra-2\proyecto datos 2\main.cpp
+	<iostream>
+	<string>
+	<fstream>
+	"DLinkedList.h"
+	"Turing.h"
+	"Grafo.h"
+
+1528674351 c:\users\josef\desktop\github\datos-progra-2\proyecto datos 2\include\dlinkedlist.h
+	<List.h>
+	<DNode.h>
+	<stdexcept>
+	<string>
+	<sstream>
+
+1528348145 c:\users\josef\desktop\github\datos-progra-2\proyecto datos 2\include\list.h
+
+1528666354 c:\users\josef\desktop\github\datos-progra-2\proyecto datos 2\include\dnode.h
+
+1528687301 c:\users\josef\desktop\github\datos-progra-2\proyecto datos 2\include\turing.h
+	<iostream>
+	<string>
+	<fstream>
+	"Grafo.h"
+
+1528679671 c:\users\josef\desktop\github\datos-progra-2\proyecto datos 2\include\grafo.h
+	"GNode.h"
+	<GraficadorTuring.h>
+	<stdexcept>
+	<string>
+
+1528348145 c:\users\josef\desktop\github\datos-progra-2\proyecto datos 2\include\gnode.h
+	"DLinkedList.h"
+
+1528684937 c:\users\josef\desktop\github\datos-progra-2\proyecto datos 2\include\graficadorturing.h
+	<winbgim.h>
+	<string>
+	<math.h>
+	<stdexcept>
+

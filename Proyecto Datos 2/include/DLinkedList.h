@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 
+
 using std::string;
 using std::runtime_error;
 using std::stringstream;
@@ -120,6 +121,10 @@ public:
             temp = temp->next;
         }
         return pos;
+    }
+
+    string getTag()throw (runtime_error){
+        return current->next->tag;
     }
 
     int getSize(){

@@ -23,5 +23,8 @@ public:
         this->next = next;
         this->previous = previous;
     }
+    string getTag(){
+        return tag;
+    }
 };
 #endif // DNODE_H
